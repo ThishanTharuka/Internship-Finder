@@ -1,4 +1,4 @@
-#Internship Finder with Python
+# Internship Finder with Python
 
 ## to run the code insert the following snippets in your terminal
 
