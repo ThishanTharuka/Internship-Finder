@@ -1,6 +1,6 @@
 to run the code insert the following snippets in your terminal
 
-$ export FLASK_APP=main.py
+$ export FLASK_APP=main.py \n
 $ export FLASK_ENV=development
 $ export FLASK_DEBUG=1
 $ flask run
