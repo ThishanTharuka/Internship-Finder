@@ -1,3 +1,5 @@
+#Internship Finder with Python
+
 ## to run the code insert the following snippets in your terminal
 
 $ export FLASK_APP=main.py<br>
