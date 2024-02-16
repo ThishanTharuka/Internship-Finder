@@ -1,0 +1,86 @@
+header {
+  margin-bottom: 10rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.buttons button:first-child {
+  margin-right: 1rem;
+}
+
+.nav h1 {
+  cursor: pointer;
+}
+
+.hero {
+  text-align: center;
+  line-height: 0.8;
+  margin-top: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.hero h1 {
+  font-size: 3.2rem;
+}
+
+.hero span:first-child {
+  color: var(--blue-500);
+}
+
+.hero span:last-child {
+  font-size: 1rem;
+  font-weight: lighter;
+  color: var(--gray-400);
+}
+
+.iAmCards {
+  display: flex;
+  margin-top: 4rem;
+}
+
+.iam-card {
+  color: var(--gray-800);
+  width: 220px;
+  padding: 15px;
+  border: 1px solid white;
+  border-radius: 20px;
+  transition: all 0.2s ease-out;
+  box-shadow: 3px 3px 10px var(--gray-100);
+}
+
+.iam-card:hover {
+  border: 1px solid var(--blue-200);
+  box-shadow: 5px 5px 20px var(--blue-200);
+}
+
+.iAmCards .iam-card:first-child {
+  margin-right: 2rem;
+}
+
+.iAmCards .iam-card i {
+  margin-bottom: 1rem;
+  color: var(--blue-500);
+  padding: 15px 20px;
+  background: var(--blue-100);
+  border-radius: 15px;
+}
+
+.iAmCards .iam-card p {
+  font-weight: 600;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  color: white;
+  background: var(--gray-100);
+}
