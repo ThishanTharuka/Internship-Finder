@@ -9,3 +9,11 @@ def home():
 @app.route("/company")
 def company():
     return render_template("company-profile.html")
+
+@app.route("/company-jobs")
+def companyJobs():
+    return render_template("company-jobs.html")
+
+@app.route("/company-applications")
+def companyApplications():
+    return render_template("company-applications.html")

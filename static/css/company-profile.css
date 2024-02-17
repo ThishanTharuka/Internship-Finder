@@ -49,3 +49,40 @@
   line-height: 1.8;
   font-weight: 500;
 }
+
+.response-applications {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.response-applications-info {
+  display: flex;
+  align-items: center;
+}
+
+.job-info {
+  margin-right: 4rem;
+}
+
+.job-info p:first-child {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.job-info p:last-child {
+  margin-top: 0.5rem;
+  color: var(--gray-400);
+}
+
+.response-applications-info-number {
+  font-size: 1.2rem;
+}
+
+.response-applications-info-number span {
+  color: white;
+  background: var(--blue-500);
+  border-radius: 50%;
+  padding: 5px 12px;
+}
