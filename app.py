@@ -1,39 +1,25 @@
-from flask import Flask, render_template, request, redirect, url_for 
+from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from datetime import datetime
 from gridfs import GridFS
 from bson import Binary
 
 app = Flask(__name__)
-client = MongoClient("mongodb+srv://Lasitha:intern-finder@internship-finder.ae6geb5.mongodb.net/")
-app.db = client.internFinder;
 
-fs = GridFS(app.db)
+# MongoDB configuration
+client = MongoClient('mongodb://localhost:27017/')
+db = client['mydb']
+collection = db['users']
 
-@app.route("/")
+# Create a GridFS object
+fs = GridFS(db)
+
+@app.route('/')
 def home():
-    return render_template("home.html")
+    return render_template('index.html')
 
-@app.route("/company")
-def company():
-    company = app.db.companies.find({"name":"Yahoo"})
-    print(company[0]["name"])
-    return render_template("company-profile.html", company=company[0])
-
-@app.route("/company-jobs")
-def companyJobs():
-    return render_template("company-jobs.html")
-
-@app.route("/company-applications")
-def companyApplications():
-    return render_template("company-applications.html")
-
-@app.route("/user-registration")
-def userRegistration():
-    return render_template("user-register.html")
-
-@app.route('/user-signup', methods=['POST'])
-def userSignup():
+@app.route('/signup', methods=['POST'])
+def signup():
     name = request.form.get('name')
     address = request.form.get('address')
     email = request.form.get('email')
@@ -88,6 +74,9 @@ def userSignup():
         user_data['profile_picture_id'] = file_id
 
     # Save data to MongoDB
-    app.db.users.insert_one(user_data)
+    collection.insert_one(user_data)
 
-    return redirect("/")
+    return redirect(url_for('home'))
+
+if __name__ == '__main__':
+    app.run(debug=True)

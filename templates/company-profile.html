@@ -40,7 +40,7 @@
         src="https://expresswriters.com/wp-content/uploads/2015/09/google-new-logo-450x450.jpg"
         width="100px"
       />
-      <p>Google Inc.</p>
+      <p>{{company.name}} Inc.</p>
     </div>
     {% block companyContent %}
     <div class="topic-section overview">
@@ -48,36 +48,19 @@
       <div class="infomation">
         <div>
           <p>
-            Website <span><a href="#">www.google.com</a></span>
+            Website <span><a href="#">{{company.website}}</a></span>
           </p>
-          <p>Size <span>10000+</span></p>
-          <p>Type <span>Private Company</span></p>
-          <p>CEO <span>Sathyan Nadella</span></p>
+          <p>Size <span>{{company.size}}</span></p>
+          <p>Type <span>{{company.type}}</span></p>
+          <p>CEO <span>{{company.ceo}}</span></p>
         </div>
         <div>
-          <p>Headquarters <span>San fransisco, CA</span></p>
-          <p>Founded <span>1995</span></p>
-          <p>industry <span>Technology and advertising</span></p>
+          <p>Headquarters <span>{{company.hq}}</span></p>
+          <p>Founded <span>{{company.founded}}</span></p>
+          <p>industry <span>{{company.industry}}</span></p>
         </div>
       </div>
-      <p class="about">
-        Founded in 1998 by Larry Page and Sergey Brin, Google has grown from a
-        simple search engine to a global technology powerhouse. With its mission
-        to "organize the world's information and make it universally accessible
-        and useful," Google has revolutionized the way people access and
-        interact with information online. Over the years, Google has expanded
-        its offerings beyond search to include a wide range of products and
-        services, including Gmail, Google Maps, YouTube, and the Android
-        operating system. Committed to innovation, Google's vision is to create
-        technology that improves the lives of billions of people worldwide.
-        Google's culture is renowned for its emphasis on creativity,
-        collaboration, and a passion for solving complex problems. Employees are
-        encouraged to think big and challenge the status quo, driving
-        forward-thinking initiatives that shape the future of technology. As a
-        global leader in technology and innovation, Google continues to attract
-        top talent from around the world. Join us in our mission to make the
-        world's information more accessible and useful for everyone.
-      </p>
+      <p class="about">{{company.about}}</p>
     </div>
     <div class="most-popular topic-section">
       <h3>Most Recent<span>.</span></h3>
