@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for 
+import io
+from flask import Flask, render_template, request, redirect, url_for, send_file
 from pymongo import MongoClient
 from datetime import datetime
-from gridfs import GridFS
-from bson import Binary
+from gridfs import GridFS, GridFSBucket
+from bson import Binary, ObjectId
 
 app = Flask(__name__)
 client = MongoClient("mongodb+srv://Lasitha:intern-finder@internship-finder.ae6geb5.mongodb.net/")
@@ -91,3 +92,46 @@ def userSignup():
     app.db.users.insert_one(user_data)
 
     return redirect("/")
+
+
+# @app.route("/user-profile")
+# def userProfile():
+#     return render_template("user-profile.html", user={})
+
+@app.route("/user-profile/<string:user_id>")
+def userProfile(user_id):
+    users = app.db.users.find_one({"_id": ObjectId(user_id)})
+    if users:
+        user_data = {
+            "name": users["name"],
+            "address": users["address"],
+            "email": users["email"],
+            "contact_number": users["contact_number"],
+            "birthday": users["birthday"].strftime("%Y-%m-%d"),
+            "degree": users["degree"],
+            "university": users["university"],
+            "social_media_github": users["social_media"]["github"],
+            "social_media_linkedin": users["social_media"]["linkedin"],
+            "skills": users["skills"],
+            "technologies": ", ".join(users["technologies"]),
+            "work_experiences": users["work_experiences"],
+            "user_description": users["user_description"],
+            "profile_picture_id": users["profile_picture_id"],
+        }
+        return render_template("user-profile.html", user=user_data)
+    else:
+        # Handle case when user is not found
+        return "User not found"
+    
+@app.route("/photo/<string:photo_id>")
+def get_photo(photo_id):
+    fs = GridFSBucket(app.db)
+    photo_data = fs.open_download_stream(ObjectId(photo_id)).read()
+    if photo_data:
+        return send_file(io.BytesIO(photo_data), mimetype='image/jpeg')
+    else:
+        return "Photo not found"
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    return render_template("login.html")
