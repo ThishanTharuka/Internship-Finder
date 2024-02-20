@@ -96,6 +96,11 @@ def userSignup():
 
     return redirect("/")
 
+  
+# @app.route("/user-profile")
+# def userProfile():
+#     return render_template("user-profile.html", user={})
+
 @app.route("/user-profile/<string:user_id>")
 def userProfile(user_id):
     users = app.db.users.find_one({"_id": ObjectId(user_id)})
@@ -116,7 +121,7 @@ def userProfile(user_id):
             "user_description": users["user_description"],
             "profile_picture_id": users["profile_picture_id"],
         }
-        return render_template("user_profile.html", user=user_data)
+        return render_template("user-profile.html", user=user_data)
     else:
         # Handle case when user is not found
         return "User not found"
@@ -129,3 +134,8 @@ def get_photo(photo_id):
         return send_file(io.BytesIO(photo_data), mimetype='image/jpeg')
     else:
         return "Photo not found"
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    return render_template("login.html")
+

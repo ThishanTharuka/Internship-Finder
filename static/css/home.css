@@ -46,6 +46,10 @@ header {
   margin-top: 4rem;
 }
 
+.iAmCards a {
+  text-decoration: none;
+}
+
 .iam-card {
   color: var(--gray-800);
   width: 220px;
