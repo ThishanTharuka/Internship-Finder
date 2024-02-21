@@ -120,6 +120,9 @@ def userSignup():
     # Save data to MongoDB
     app.db.users.insert_one(user_data)
 
+    session["email"] = email
+    session["type"] = "user"
+
     return redirect("/")
 
 
@@ -235,6 +238,9 @@ def companySignup():
 
     # Save data to MongoDB
     app.db.companies.insert_one(user_data)
+
+    session["email"] = email
+    session["type"] = "company"
 
     return redirect("/")
 
