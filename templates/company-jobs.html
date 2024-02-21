@@ -1,23 +1,24 @@
 {% extends 'company-profile.html' %} {% block companyContent %}
 
 <div class="card-list container">
+  {% for job in jobs %}
   <div class="card job-card">
     <div class="job-card-company">
       <div class="job-card-company-logo">
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png"
+          src="{{ url_for('get_photo', photo_id=company.profile_picture_id) }}"
           alt="company-logo"
         />
-        <p>Google</p>
+        <p>{{company.name}}</p>
       </div>
       <time>5 days ago</time>
     </div>
-    <h2>Senior Software Engineer - Java</h2>
+    <h2>{{ job.tital }}</h2>
     <div class="job-card-info">
-      <p><i class="fa-solid fa-location-dot"></i> Colombo, Sri Lanka</p>
+      <p><i class="fa-solid fa-location-dot"></i> {{ job.location }}</p>
       <p><i class="fa-solid fa-dollar-sign"></i> 3200/mo</p>
-      <p>Full Time</p>
-      <p>Posted by Google</p>
+      <p>{{ job.type }}</p>
+      <p>Posted by {{ company.name}}</p>
     </div>
     <div class="job-card-buttons">
       <div class="btn btn-blue-500">Edit</div>
@@ -25,6 +26,7 @@
       <div class="btn btn-red-500">Delete</div>
     </div>
   </div>
+  {% endfor %}
   <!-- ---------------------- -->
 
   <!-- -------------- -->

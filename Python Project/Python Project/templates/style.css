@@ -1,0 +1,249 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+  color: var(--gray-700);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+:root {
+  --blue-100: #cce1ff;
+  --blue-200: #99c3ff;
+  --blue-300: #66a6ff;
+  --blue-400: #3388ff;
+  --blue-500: #006aff;
+  --blue-600: #0055cc;
+  --blue-700: #004099;
+  --blue-800: #002a66;
+  --blue-900: #001533;
+
+  --gray-100: #dbdee6;
+  --gray-200: #b7bdcd;
+  --gray-300: #939cb4;
+  --gray-400: #6c7899;
+  --gray-500: #525c76;
+  --gray-600: #41495d;
+  --gray-700: #323848;
+  --gray-800: #212630;
+  --gray-900: #111318;
+
+  --orange-100: #ffeccc;
+  --orange-200: #ffd894;
+  --orange-300: #ffc561;
+  --orange-400: #ffb22e;
+  --orange-500: #f69c00;
+  --orange-600: #c77e00;
+  --orange-700: #945e00;
+  --orange-800: #613d00;
+  --orange-900: #332000;
+
+  --green-100: #c7ffdd;
+  --green-200: #8fffbc;
+  --green-300: #57ff9a;
+  --green-400: #1fff78;
+  --green-500: #00e65c;
+  --green-600: #00b849;
+  --green-700: #008a37;
+  --green-800: #005c25;
+  --green-900: #002e12;
+
+  --red-100: #fecdd2;
+  --red-200: #fda0a9;
+  --red-300: #fc6e7c;
+  --red-400: #fb3c4f;
+  --red-500: #fa0c24;
+  --red-600: #cd0418;
+  --red-700: #9b0312;
+  --red-800: #69020c;
+  --red-900: #320106;
+}
+
+.btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.btn:hover {
+  transition: all 0.2s ease-out;
+}
+
+.btn-blue-500 {
+  background: var(--blue-500);
+  color: white;
+}
+
+.btn-blue-500:hover {
+  background: var(--blue-600);
+}
+
+.btn-blue-100 {
+  background: var(--blue-100);
+  color: var(--blue-500);
+}
+
+.btn-blue-100:hover {
+  background: var(--blue-200);
+}
+
+.btn-gray-100 {
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+
+.btn-gray-100:hover {
+  background: var(--blue-100);
+  color: var(--blue-500);
+}
+
+.card {
+  padding: 1rem;
+  border-radius: 15px;
+  border: 2px solid var(--gray-100);
+  transition: all 0.2s ease-out;
+}
+
+.card:hover {
+  border: 2px solid var(--blue-200);
+}
+
+.card-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  width: 90%;
+}
+
+.job-card {
+  width: 300px;
+}
+
+.job-card-company {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.job-card-company time {
+  color: var(--gray-300);
+  font-weight: 600;
+}
+
+.job-card-company-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.job-card-company-logo img {
+  width: 25px;
+  margin-bottom: 5px;
+}
+
+.job-card-company-logo p {
+  font-size: 0.8rem;
+}
+
+.job-card h2 {
+  font-size: 1.1rem;
+  margin: 1rem 0;
+}
+
+.job-card-info {
+  color: red;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.job-card-info p,
+.job-card-info p i {
+  color: var(--gray-400);
+}
+
+.job-card-info p {
+  font-weight: 600;
+}
+
+.hover-blue-card {
+  text-align: center;
+  width: 180px;
+}
+
+.hover-blue-card p {
+  font-weight: bold;
+  color: var(--gray-500);
+}
+
+.hover-blue-card i {
+  color: var(--gray-500);
+  margin-bottom: 1rem;
+  transition: all 0.2s ease-out;
+}
+
+.hover-blue-card:hover i {
+  color: var(--blue-500);
+}
+
+.topic-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  margin-bottom: 6rem;
+}
+
+.topic-section h3 {
+  font-size: 2rem;
+}
+
+.topic-section h3 span {
+  color: var(--blue-500);
+}
+
+.topic-section .btn-view-all {
+  margin-top: 4rem;
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.nav-bar ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-bar ul li i {
+  margin-right: 0.5rem;
+  color: var(--gray-200);
+}
+
+.nav-bar ul li:hover i,
+.nav-bar ul li:hover a {
+  color: var(--gray-600);
+}
+
+.nav-bar ul li a {
+  text-decoration: none;
+  color: var(--gray-300);
+  font-weight: 500;
+}
+
+.nav-bar ul li {
+  list-style: none;
+  margin: 0 2rem;
+}

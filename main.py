@@ -50,7 +50,8 @@ def company():
 @app.route("/company-jobs")
 def companyJobs():
     company = app.db.companies.find_one({"email": session.get('email')})
-    return render_template("company-jobs.html",  company=company)
+    jobs = app.db.jobs.find({"owner_id": session.get('user_id')})
+    return render_template("company-jobs.html",  company=company, jobs=jobs)
 
 @app.route("/company-applications")
 def companyApplications():
@@ -177,6 +178,7 @@ def authenticate():
     user_doc = app.db.users.find_one({"email": email})
     company_doc = app.db.companies.find_one({"email": email})
 
+
     if user_doc is not None and password == user_doc.get("password"):
         session["email"] = email
         session["type"] = "user"
@@ -243,6 +245,45 @@ def companySignup():
     session["type"] = "company"
 
     return redirect("/")
+
+@app.route("/add-new-job")
+def addNewJob():
+    return render_template('add-job.html')
+
+@app.route("/job-register", methods=['POST'])
+def jobRegister():
+    title = request.form.get('title')
+    location = request.form.get('location')
+    salary = request.form.get('salary')
+    discription = request.form.get('discription')
+    responsibilities = request.form.get('responsibilities')
+    requirements = request.form.get('requirements')
+    owner_id = session.get('user_id')
+
+    # Get technologies as a comma-separated string from the form
+    skills_string = request.form.get('skills')
+
+    # Split the string into a list of technologies
+    skills = [tech.strip() for tech in skills_string.split(',')]
+
+
+    # Now create user_data
+    job_data = {
+        'title': title,
+        'location': location,
+        'salary': salary,
+        'discription': discription,
+        'responsibilities': responsibilities,
+        'requirements': requirements,
+        'skills': skills,
+        'owner_id': owner_id,
+    }
+
+    # Save data to MongoDB
+    app.db.jobs.insert_one(job_data)
+
+    return redirect("/company")
+
 
 @app.route("/logout")
 def logout():
