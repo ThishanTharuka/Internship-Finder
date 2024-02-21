@@ -35,7 +35,7 @@ def home():
     
     getId()
     if session["user_id"] and session.get('type') == 'user':
-        return redirect(f"/user-profile/{user_id}")
+        return redirect(f"/user-profile/{session.get('user_id')}")
     elif session["user_id"] and session.get('type') == 'company':
         return redirect("/company")
     else:
@@ -178,7 +178,7 @@ def authenticate():
         session["email"] = email
         session["type"] = "user"
         session["user_id"] = None
-        return redirect("/user-profile/65d345ff8d33f81c6f5767f9")
+        return redirect("/")
     elif company_doc is not None and password == company_doc.get("password"):
         session["email"] = email
         session["type"] = "company"
