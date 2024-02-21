@@ -1,5 +1,5 @@
 import io
-from flask import Flask, render_template, request, redirect, url_for, send_file
+from flask import Flask, render_template, request, redirect, url_for, send_file, session
 from pymongo import MongoClient
 from datetime import datetime
 from gridfs import GridFS, GridFSBucket
@@ -9,21 +9,48 @@ app = Flask(__name__)
 client = MongoClient("mongodb+srv://Lasitha:intern-finder@internship-finder.ae6geb5.mongodb.net/")
 app.db = client.internFinder;
 
+app.secret_key = "DfhfpXFk3D4WlOM7k7RtPg"
+
 fs = GridFS(app.db)
+
+
+@app.route('/getid')
+def getId():
+    session_email = session.get('email')
+    
+    if session_email is not None:
+        if session['type'] == 'user':
+            session["user_id"] = str(app.db.users.find_one({"email": session_email})['_id'])
+        elif session['type'] == 'company':
+            session["user_id"] = str(app.db.companies.find_one({"email": session_email})['_id'])
+        else:
+            print("no session values")
+
+
+
+
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    
+    getId()
+    if session["user_id"] and session.get('type') == 'user':
+        return redirect(f"/user-profile/{user_id}")
+    elif session["user_id"] and session.get('type') == 'company':
+        return redirect("/company")
+    else:
+        return render_template("home.html")
 
 @app.route("/company")
 def company():
-    company = app.db.companies.find({"name":"Yahoo"})
-    print(company[0]["name"])
-    return render_template("company-profile.html", company=company[0])
+    company = app.db.companies.find_one({"email": session.get('email')})
+    print(company.get('name'))
+    return render_template("company-profile.html", company=company)
 
 @app.route("/company-jobs")
 def companyJobs():
-    return render_template("company-jobs.html")
+    company = app.db.companies.find_one({"email": session.get('email')})
+    return render_template("company-jobs.html",  company=company)
 
 @app.route("/company-applications")
 def companyApplications():
@@ -38,6 +65,7 @@ def userSignup():
     name = request.form.get('name')
     address = request.form.get('address')
     email = request.form.get('email')
+    password = request.form.get('password')
     contact_number = request.form.get('contact_number')
     birthday = request.form.get('birthday')
     degree = request.form.get('degree')
@@ -70,6 +98,7 @@ def userSignup():
         'name': name,
         'address': address,
         'email': email,
+        'password': password,
         'contact_number': contact_number,
         'birthday': birthday,
         'degree': degree,
@@ -135,3 +164,82 @@ def get_photo(photo_id):
 @app.route("/login", methods=["GET", "POST"])
 def login():
     return render_template("login.html")
+
+@app.route("/authenticate", methods=["POST"])
+def authenticate():
+
+    email = request.form.get('username')
+    password = request.form.get('password')
+
+    user_doc = app.db.users.find_one({"email": email})
+    company_doc = app.db.companies.find_one({"email": email})
+
+    if user_doc is not None and password == user_doc.get("password"):
+        session["email"] = email
+        session["type"] = "user"
+        session["user_id"] = None
+        return redirect("/user-profile/65d345ff8d33f81c6f5767f9")
+    elif company_doc is not None and password == company_doc.get("password"):
+        session["email"] = email
+        session["type"] = "company"
+        session["user_id"] = None
+        return redirect("/company")
+    else:
+        print("wrong email and password")
+        return render_template("login.html")
+
+    return render_template("login.html")
+
+
+
+@app.route("/company-registration")
+def companyRegistration():
+    return render_template("company-register.html")
+
+@app.route('/company-signup', methods=['POST'])
+def companySignup():
+    name = request.form.get('name')
+    website = request.form.get('website')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    founded = request.form.get('founded')
+    size = request.form.get('size')
+    industry = request.form.get('industry')
+    company_type = request.form.get('company_type')
+    description = request.form.get('description')
+
+    # Handle profile picture
+    profile_picture = request.files['profile_picture']
+    if profile_picture:
+        # Read the file data
+        file_data = profile_picture.read()
+        # Save the file data into MongoDB using GridFS
+        file_id = fs.put(file_data, filename=profile_picture.filename)
+
+    # Now create user_data
+    user_data = {
+        'name': name,
+        'website': website,
+        'email': email,
+        'password': password,
+        'founded': founded,
+        'size': size,
+        'industry': industry,
+        'company_type': company_type,
+        'description': description,
+    }
+
+    # If profile_picture is available, add it to user_data
+    if profile_picture:
+        user_data['profile_picture_id'] = file_id
+
+    # Save data to MongoDB
+    app.db.companies.insert_one(user_data)
+
+    return redirect("/")
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    session["user_id"] = None
+    return redirect("/")

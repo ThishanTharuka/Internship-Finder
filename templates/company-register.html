@@ -36,15 +36,29 @@
 
     <div class="container mt-5">
       <h2>Sign Up</h2>
-      <form method="POST" action="/user-signup" enctype="multipart/form-data">
+      <form
+        method="POST"
+        action="/company-signup"
+        enctype="multipart/form-data"
+      >
         <div class="form-group">
           <label for="name" class="text-left">Name:</label>
           <input type="text" class="form-control" name="name" required />
         </div>
 
         <div class="form-group">
-          <label for="address" class="text-left">Address:</label>
-          <input type="text" class="form-control" name="address" required />
+          <label for="website" class="text-left">Website:</label>
+          <input type="text" class="form-control" name="website" required />
+        </div>
+
+        <div class="form-group">
+          <label for="hq">Headquarters location: </label>
+          <input type="text" class="form-control" name="hq" required />
+        </div>
+
+        <div class="form-group">
+          <label for="ceo">Name of the CEO: </label>
+          <input type="text" class="form-control" name="ceo" required />
         </div>
 
         <div class="form-group">
@@ -63,79 +77,47 @@
         </div>
 
         <div class="form-group">
-          <label for="contact_number">Contact Number:</label>
-          <input
-            type="tel"
-            class="form-control"
-            name="contact_number"
-            required
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="birthday">Birthday:</label>
-          <input type="date" class="form-control" name="birthday" required />
-        </div>
-
-        <div class="form-group">
-          <label for="degree">Degree:</label>
-          <input type="text" class="form-control" name="degree" required />
-        </div>
-
-        <div class="form-group">
-          <label for="university">University:</label>
-          <input type="text" class="form-control" name="university" required />
-        </div>
-
-        <div class="form-group">
-          <label for="social_media_github">GitHub Profile:</label>
+          <label for="founded">Founded:</label>
           <input
             type="text"
             class="form-control"
-            name="social_media_github"
+            name="founded"
+            placeholder="Year founded ex.1998"
             required
           />
         </div>
 
         <div class="form-group">
-          <label for="social_media_linkedin">LinkedIn Profile:</label>
+          <label for="size">Number of empoyees:</label>
           <input
             type="text"
             class="form-control"
-            name="social_media_linkedin"
+            name="size"
             required
+            placeholder="Ex: 50-100"
           />
         </div>
 
         <div class="form-group">
-          <label for="skills">Skills:</label>
-          <textarea
-            class="form-control"
-            name="skills"
-            rows="4"
-            required
-          ></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="technologies">Technologies:</label>
+          <label for="industry">Industry:</label>
           <input
             type="text"
             class="form-control"
-            name="technologies"
+            name="industry"
             required
-            placeholder="Enter Technologies (comma-separated)"
+            placeholder="Technology and Energy"
           />
         </div>
 
         <div class="form-group">
-          <label for="work_experiences">Work Experiences:</label>
-          <textarea
+          <label for="company_type">Type of the enterprice:</label>
+          <input
+            type="text"
             class="form-control"
-            name="work_experiences"
-            rows="4"
+            name="company_type"
             required
-          ></textarea>
+            placeholder="private company or public company"
+          />
         </div>
 
         <div class="form-group">
@@ -150,15 +132,15 @@
         </div>
 
         <div class="form-group">
-          <label for="user_description" class="text-left"
-            >User Description:</label
+          <label for="description" class="text-left"
+            >Company Description:</label
           >
           <textarea
             class="form-control"
-            name="user_description"
+            name="description"
             rows="4"
             required
-            placeholder="Tell us more about yourself..."
+            placeholder="Tell us abour about company..."
           ></textarea>
         </div>
 
