@@ -28,7 +28,9 @@
       <h1>FindOn</h1>
       <ul>
         <li class="nav-bar-avtive">
-          <a href="/user-profile"><i class="fa-solid fa-house"></i>Profile</a>
+          <a href="/user-profile/{{user._id}}"
+            ><i class="fa-solid fa-house"></i>Profile</a
+          >
         </li>
         <li>
           <a href="/user-recomendations"
@@ -46,6 +48,7 @@
         <div class="btn btn-blue-500"><a href="/logout">Log Out</a></div>
       </div>
     </nav>
+    {% block userContent %}
     <div class="container">
       <div class="row justify-content-center mt-5">
         <div class="col-lg-8">
@@ -140,7 +143,7 @@
       </div>
     </div>
     <!-- ------------------------ -->
-
+    {% endblock %}
     <footer>
       <h4>FindOn</h4>
       <p>all rights reserved</p>

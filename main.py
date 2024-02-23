@@ -55,7 +55,8 @@ def companyJobs():
 
 @app.route("/company-applications")
 def companyApplications():
-    return render_template("company-applications.html")
+    company = app.db.companies.find_one({"email": session.get('email')})
+    return render_template("company-applications.html", company=company)
 
 @app.route("/user-registration")
 def userRegistration():
@@ -136,6 +137,7 @@ def userProfile(user_id):
     users = app.db.users.find_one({"_id": ObjectId(user_id)})
     if users:
         user_data = {
+            "_id": session.get('user_id'),
             "name": users["name"],
             "address": users["address"],
             "email": users["email"],
@@ -165,6 +167,53 @@ def get_photo(photo_id):
     else:
         return "Photo not found"
 
+
+@app.route("/user-recomendations")
+def userRecomendations():
+
+    users = app.db.users.find_one({"_id": ObjectId(session.get('user_id'))})
+    if users:
+        user_data = {
+            "_id": session.get('user_id'),
+            "name": users["name"],
+            "address": users["address"],
+            "email": users["email"],
+            "contact_number": users["contact_number"],
+            "birthday": users["birthday"].strftime("%Y-%m-%d"),
+            "degree": users["degree"],
+            "university": users["university"],
+            "social_media_github": users["social_media"]["github"],
+            "social_media_linkedin": users["social_media"]["linkedin"],
+            "skills": users["skills"],
+            "technologies": ", ".join(users["technologies"]),
+            "work_experiences": users["work_experiences"],
+            "user_description": users["user_description"],
+            "profile_picture_id": users["profile_picture_id"],
+        }
+
+    recomandations = []
+    jobs = app.db.jobs.find({})
+
+    for job in jobs:
+        eligible = True
+        print(job)
+        for skill in job.get('skills'):
+            if not skill in users.get('technologies'):
+                eligible = False
+                break
+        
+        if eligible:
+            print(job.get('owner_id'))
+            owner = app.db.companies.find_one({"_id": ObjectId(job.get('owner_id'))})
+            print(owner)
+            job["owner_name"] = owner.get('name')
+            job["profile_picture_id"] = owner["profile_picture_id"]
+            recomandations.append(job)
+
+    print(recomandations)
+
+    return render_template("user-recomandations.html", user=user_data, recomandations=recomandations)
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     return render_template("login.html")
@@ -188,7 +237,7 @@ def authenticate():
         session["email"] = email
         session["type"] = "company"
         session["user_id"] = None
-        return redirect("/company")
+        return redirect("/")
     else:
         print("wrong email and password")
         return render_template("login.html")

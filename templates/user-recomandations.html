@@ -1,0 +1,34 @@
+{% extends 'user-profile.html' %} {% block userContent %}
+
+<div class="card-list container">
+  {% for recomandation in recomandations %}
+  <div class="card job-card">
+    <div class="job-card-company">
+      <div class="job-card-company-logo">
+        <img
+          src="{{ url_for('get_photo', photo_id=recomandation.profile_picture_id) }}"
+          alt="company-logo"
+        />
+        <p>{{recomandation.owner_name}}</p>
+      </div>
+      <time>5 days ago</time>
+    </div>
+    <h2>{{recomandation.title}}</h2>
+    <div class="job-card-info">
+      <p><i class="fa-solid fa-location-dot"></i> {{recomandation.location}}</p>
+      <p><i class="fa-solid fa-dollar-sign"></i> {{recomandation.salary}}/mo</p>
+      <p>{{recomandation.type}}</p>
+      <p>Posted by {{recomandation.owner_name}}</p>
+    </div>
+    <div class="job-card-buttons">
+      <div class="btn btn-blue-500">Apply</div>
+      <div class="btn btn-gray-100">View Job</div>
+    </div>
+  </div>
+  {% endfor %}
+  <!-- ---------------------- -->
+
+  <!-- -------------- -->
+</div>
+
+{% endblock %}
