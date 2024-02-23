@@ -56,7 +56,18 @@ def companyJobs():
 @app.route("/company-applications")
 def companyApplications():
     company = app.db.companies.find_one({"email": session.get('email')})
-    return render_template("company-applications.html", company=company)
+    jobs = app.db.jobs.find({"owner_id": session.get('user_id')})
+
+    applications = []
+
+    for job in jobs:
+        if len(job["applicants"]) > 0:
+            job["num_of_app"] = len(job["applicants"])
+            applications.append(job) 
+    
+    print(applications)
+
+    return render_template("company-applications.html", company=company, applications=applications)
 
 @app.route("/user-registration")
 def userRegistration():
@@ -196,23 +207,30 @@ def userRecomendations():
 
     for job in jobs:
         eligible = True
-        print(job)
         for skill in job.get('skills'):
             if not skill in users.get('technologies'):
                 eligible = False
                 break
         
         if eligible:
-            print(job.get('owner_id'))
             owner = app.db.companies.find_one({"_id": ObjectId(job.get('owner_id'))})
-            print(owner)
             job["owner_name"] = owner.get('name')
             job["profile_picture_id"] = owner["profile_picture_id"]
+            job["job_id"] = str(job["_id"])
             recomandations.append(job)
 
     print(recomandations)
-
     return render_template("user-recomandations.html", user=user_data, recomandations=recomandations)
+
+@app.route("/apply-job/<string:job_id>")
+def applyJob(job_id):
+    job = app.db.jobs.find_one({"_id": ObjectId(job_id)})
+    applications_list = job.get('applicants')
+    applications_list.append(session.get('user_id'))
+
+    app.db.jobs.update_one({"_id":ObjectId(job_id)}, {"$set":{"applicants":applications_list}})
+
+    return redirect("/user-recomendations")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

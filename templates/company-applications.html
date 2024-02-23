@@ -1,18 +1,20 @@
 {% extends 'company-profile.html' %} {% block companyContent %}
 
 <div class="container applications">
+  {% for application in applications %}
   <div class="card response-applications">
     <div class="response-applications-info">
       <div class="job-info">
-        <p>Java - developer</p>
+        <p>{{application.title}}</p>
         <p>7 days ago</p>
       </div>
       <p class="response-applications-info-number">
-        <span>5</span> Applications
+        <span>{{application.num_of_app}}</span> Applications
       </p>
     </div>
     <div class="btn btn-blue-500">View All</div>
   </div>
+  {% endfor %}
 </div>
 
 {% endblock %}
