@@ -12,7 +12,9 @@
         <span>{{application.num_of_app}}</span> Applications
       </p>
     </div>
-    <div class="btn btn-blue-500">View All</div>
+    <div class="btn btn-blue-500">
+      <a href="/view-applicants/{{application.job_id}}">View All</a>
+    </div>
   </div>
   {% endfor %}
 </div>

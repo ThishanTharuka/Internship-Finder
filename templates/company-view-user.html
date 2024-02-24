@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User-Profile</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/user-profile.css" />
+    <link rel="stylesheet" href="../static/css/common.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    <nav class="container nav-bar">
+      <h1>FindOn</h1>
+      <div class="nav-btns">
+        <!-- <div class="btn btn-blue-100">Apply Job</div> -->
+        <div class="btn btn-blue-500"><a href="/logout">Log Out</a></div>
+      </div>
+    </nav>
+    {% block userContent %}
+    <div class="container">
+      <div class="row justify-content-center mt-5">
+        <div class="col-lg-8">
+          <!-- main card for profile -->
+          <div class="card">
+            <div class="card-body">
+              <!-- name and the profile picture -->
+              <div class="card">
+                <div class="row">
+                  <div class="col-md-3 text-center" style="margin: 0 auto">
+                    <img
+                      src="{{ url_for('get_photo', photo_id=user.profile_picture_id) }}"
+                      alt="Photo"
+                      class="profile-picture img-fluid rounded-circle"
+                    />
+                  </div>
+                </div>
+                <div class="container">
+                  <h1 class="card-title">
+                    <i class="fas fa-user"></i> {{user.name}}
+                  </h1>
+                </div>
+              </div>
+
+              <!-- other details -->
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <h2>Address</h2>
+                  <p>{{user.address}}</p>
+
+                  <h2>Email address</h2>
+                  <p>{{user.email}}</p>
+
+                  <h2>Contact number</h2>
+                  <p>{{user.contact_number}}</p>
+                </div>
+                <div class="col-md-6">
+                  <h2>Birthday</h2>
+                  <p>{{user.birthday}}</p>
+
+                  <h2>Degree</h2>
+                  <p>{{user.degree}}</p>
+
+                  <h2>University</h2>
+                  <p>{{user.university}}</p>
+                </div>
+              </div>
+
+              <!-- skills technologies and work expireance -->
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <h2>Skills</h2>
+                  <ul>
+                    <li>{{user.skills}}</li>
+                  </ul>
+
+                  <h2>Technologies</h2>
+                  <ul>
+                    <li>{{user.technologies}}</li>
+                  </ul>
+
+                  <h2>Work experiences</h2>
+                  <ul>
+                    <li>{{user.work_experiences}}</li>
+                  </ul>
+
+                  <!-- custom field for more details -->
+                  <h2>Custom field</h2>
+                  <p>{{custom_field}}</p>
+                </div>
+
+                <!-- github and linked in accounts, pass data throug variables -->
+                <div class="col-md-6">
+                  <h2><i class="fab fa-github"></i> GitHub profile</h2>
+                  <p>
+                    <a href="{{user.social_media_github}}"
+                      >{{user.social_media_github}}</a
+                    >
+                  </p>
+
+                  <h2><i class="fab fa-linkedin-in"></i> LinkedIn profile</h2>
+                  <p>
+                    <a href="{{user.social_media_linkedin}}"
+                      >{{user.social_media_linkedin}}</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ------------------------ -->
+    {% endblock %}
+    <footer>
+      <h4>FindOn</h4>
+      <p>all rights reserved</p>
+      <div></div>
+    </footer>
+  </body>
+</html>

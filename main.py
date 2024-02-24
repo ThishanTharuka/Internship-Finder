@@ -63,11 +63,31 @@ def companyApplications():
     for job in jobs:
         if len(job["applicants"]) > 0:
             job["num_of_app"] = len(job["applicants"])
+            job["job_id"] = str(job["_id"])
             applications.append(job) 
     
     print(applications)
 
     return render_template("company-applications.html", company=company, applications=applications)
+
+@app.route("/view-applicants/<string:job_id>")
+def viewApplicants(job_id):
+
+    ids = app.db.jobs.find_one({"_id": ObjectId(job_id)}).get('applicants')
+
+    applicants = []
+
+    for id in ids:
+        applicants.append(app.db.users.find_one({"_id": ObjectId(id)}))
+
+    print(applicants)
+
+    return render_template("company-view-applicants.html", applicants=applicants)
+
+@app.route("/view-user/<string:user_id>")
+def viewUser(user_id):
+    user = app.db.users.find_one({"_id": ObjectId(user_id)})
+    return render_template("company-view-user.html", user=user)
 
 @app.route("/user-registration")
 def userRegistration():

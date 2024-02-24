@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/common.css" />
+    <link rel="stylesheet" href="../static/css/company-profile.css" />
+    <link rel="stylesheet" href="../static/css/company-view-applicants.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Applicants</title>
+  </head>
+  <body>
+    <nav class="container nav-bar">
+      <h1>FindOn</h1>
+    </nav>
+    <div class="container applicants">
+      {% for applicant in applicants %}
+      <div class="applicant">
+        <div>
+          <img
+            src="{{ url_for('get_photo', photo_id=applicant.profile_picture_id) }}"
+          />
+          <p>{{applicant.name}}</p>
+        </div>
+        <a href="/view-user/{{applicant._id}}">
+          <div class="btn btn-blue-500">View Account</div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
